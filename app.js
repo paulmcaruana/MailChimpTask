@@ -16,7 +16,45 @@ const firstName = req.body.fName;
 const lastName = req.body.lName;
 const email = req.body.email;
 
-console.log(firstName,lastName,email);
+var data = {
+  members:[
+    {
+      email_address:email,
+      status:"subscribed",
+      merge_fields: {
+      FNAME: firstName,
+      LNAME: lastName
+    }
+  }
+  ]
+};
+
+var jsonData = JSON.stringify(data);
+const url = "https://us19.api.mailchimp.com/3.0/lists/06a9949b7a";
+
+const options = {
+    method:"POST",
+    auth:"MadDogDev:a4562c0c44f6e55fd37bfc999fd43e23-us19"
+};
+
+const request = https.request(url,options,function(response){
+
+
+if (response.statusCode === 200){
+  res.send ("Successfully Subscribed!");
+}
+else {
+  res.send ("Error!");
+}
+
+
+response.on("data",function(data){
+ console.log(JSON.parse(data));
+});
+});
+
+request.write(jsonData);
+request.end();
 });
 
 app.listen(3000, function(){
@@ -27,3 +65,5 @@ app.listen(3000, function(){
 /* d7cfa68fa6607c938872c8bb141066c1-us19     API key for mailchimp*/
 
 /* 06a9949b7a    Unique ID for audience*/
+
+// https://usX.api.mailchimp.com/3.0/lists    end point
