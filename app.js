@@ -61,9 +61,3 @@ app.listen(3000, function(){
   console.log("Server started on port 300");
 });
 
-
-/* d7cfa68fa6607c938872c8bb141066c1-us19     API key for mailchimp*/
-
-/* 06a9949b7a    Unique ID for audience*/
-
-// https://usX.api.mailchimp.com/3.0/lists    end point
